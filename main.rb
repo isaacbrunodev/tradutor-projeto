@@ -1,14 +1,14 @@
-require "google/cloud/translate"
+require 'yandex-translator'
 
 class Tradutor
   def initialize
-    @translate = Google::Cloud::Translate.new
+    @translator = Yandex::Translator.new('YANDEX_API_KEY')
   end
 
   def traduzir_texto(texto, idioma_origem, idioma_destino)
-    traducao = @translate.translate(texto, from: idioma_origem, to: idioma_destino)
-    salvar_traducao(texto, traducao.text, idioma_destino)
-    traducao.text
+    traducao = @translator.translate(texto, from: idioma_origem, to: idioma_destino)
+    salvar_traducao(texto, traducao, idioma_destino)
+    traducao
   end
 
   private
@@ -37,4 +37,3 @@ idioma_destino = gets.chomp
 
 texto_traduzido = tradutor.traduzir_texto(texto, idioma_origem, idioma_destino)
 puts "Texto Traduzido: #{texto_traduzido}"
-
